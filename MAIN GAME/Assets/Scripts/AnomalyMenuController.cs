@@ -1,74 +1,107 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class AnomalyMenuController : MonoBehaviour
 {
     [Header("Panel")]
-    [SerializeField] GameObject panelRoot;          
-    [SerializeField] CanvasGroup panelGroup;        
+    [SerializeField] RectTransform panelRoot; 
+    [SerializeField] CanvasGroup panelGroup;  
 
-    [Header("Open/Close Button")]
-    [SerializeField] Button   openCloseButton;     
-    [SerializeField] TMP_Text openCloseLabel;       
-    [SerializeField] string   openText  = "OPEN ANOMALY MENU";
-    [SerializeField] string   closeText = "CLOSE ANOMALY MENU";
+    [Header("Open/Close button")]
+    [SerializeField] UnityEngine.UI.Button openCloseButton; 
+    [SerializeField] TMP_Text openCloseLabel;
+    [SerializeField] string openText  = "OPEN ANOMALY MENU";
+    [SerializeField] string closeText = "CLOSE ANOMALY MENU";
 
-    [Header("Selection (optional labels)")]
-    [SerializeField] TMP_Text roomLabel;            
-    [SerializeField] TMP_Text typeLabel;            
+    
+    [SerializeField] TMP_Text roomLabel;
+    [SerializeField] TMP_Text typeLabel;
 
-    public string SelectedRoom  { get; private set; }
-    public string SelectedType  { get; private set; }
     bool isOpen;
+    string selectedRoom;
+    string selectedType;
 
     void Awake()
     {
-        if (!panelRoot) panelRoot = gameObject;
-        if (!panelGroup)
+        HideMenuImmediate();
+    }
+
+    public void ToggleOpenClose()
+    {
+        if (isOpen) CloseMenu();
+        else OpenMenu();
+    }
+
+    public void OpenMenu()
+    {
+        isOpen = true;
+        SetPanelVisible(true);
+        if (openCloseLabel) openCloseLabel.text = closeText;
+    }
+
+    public void CloseMenu()
+    {
+        isOpen = false;
+        SetPanelVisible(false);
+        if (openCloseLabel) openCloseLabel.text = openText;
+    }
+
+    void HideMenuImmediate()
+    {
+        isOpen = false;
+        SetPanelVisible(false, instant:true);
+        if (openCloseLabel) openCloseLabel.text = openText;
+    }
+
+    void SetPanelVisible(bool show, bool instant = false)
+    {
+        if (panelRoot) panelRoot.gameObject.SetActive(show);
+
+        if (panelGroup)
         {
-            panelGroup = panelRoot.GetComponent<CanvasGroup>();
-            if (!panelGroup) panelGroup = panelRoot.AddComponent<CanvasGroup>();
+            panelGroup.interactable   = show;
+            panelGroup.blocksRaycasts = show;
+            panelGroup.alpha          = show ? 1f : 0f;
         }
-        Show(false, true);
     }
 
     
-    public void ToggleMenu() => Show(!isOpen);
-
-    public void Show(bool value, bool instant = false)
+    public void SelectRoom(string room)
     {
-        isOpen = value;
-
-        panelRoot.SetActive(true);                 
-        panelGroup.alpha = value ? 1f : 0f;
-        panelGroup.interactable   = value;
-        panelGroup.blocksRaycasts = value;         
-
-        if (openCloseLabel) openCloseLabel.text = value ? closeText : openText;
+        selectedRoom = room;
+        if (roomLabel) roomLabel.text = room;
     }
 
     
-    public void SelectRoom(string roomId)
+    public void SelectType(string type)
     {
-        SelectedRoom = roomId;
-        if (roomLabel) roomLabel.text = roomId;
+        selectedType = type;
+        if (typeLabel) typeLabel.text = type;
+    }
+
+    
+    public void OnCancel()
+    {
         
+        selectedRoom = null;
+        selectedType = null;
+        if (roomLabel) roomLabel.text = "";
+        if (typeLabel) typeLabel.text = "";
+        CloseMenu();
     }
 
-    public void SelectType(string typeId)
+    public void OnReport()
     {
-        SelectedType = typeId;
-        if (typeLabel) typeLabel.text = typeId;
+        if (string.IsNullOrEmpty(selectedRoom) || string.IsNullOrEmpty(selectedType))
+        {
+            Debug.LogWarning("Pick both a room and an anomaly type before reporting.");
+            return;
+        }
+
+        Debug.Log($"REPORT sent: Room={selectedRoom}, Type={selectedType}");
         
-    }
 
-    
-    public void ClearSelection()
-    {
-        SelectedRoom = null;
-        SelectedType = null;
-        if (roomLabel) roomLabel.text = string.Empty;
-        if (typeLabel) typeLabel.text = string.Empty;
+        
+        OnCancel();
     }
 }
