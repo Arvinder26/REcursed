@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: ef57a68dc3f47d444a2a54b88cda8de5
+  productGUID: e39b6cb6e7ff37242bfda95cee9bf1dc
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: RECursed_Anomoly
+  productName: Recursed_MainMenu
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -838,14 +838,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: RECursed_Anomoly
+  metroPackageName: Recursed_MainMenu
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: RECursed_Anomoly
+  metroApplicationDescription: Recursed_MainMenu
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -916,11 +916,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: 19c3dc63-0635-440b-aa22-7e7d60899a63
+  cloudProjectId: 6fd61b60-b5e5-4dc9-9065-c974261f11f2
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: RECursed_Anomoly
-  organizationId: arvindax26
+  projectName: Recursed_MainMenu
+  organizationId: unity_30fca4bec84c32e10653
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
